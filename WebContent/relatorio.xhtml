@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="titulo">Relatórios de Atendimentos</ui:define>
+	<ui:define name="conteudo">
+
+		<p:growl id="msg" globalOnly="true" life="5000" showDetail="true" closable="true" />
+
+		<h:form id="relatorioForm">
+			<p:panel header="Filtro de Relatórios" styleClass="filter-panel">
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:outputLabel for="dataInicio" value="Data Inicial:" />
+					<p:datePicker id="dataInicio" value="#{relatorioBean.dataInicio}"
+						pattern="dd/MM/yyyy HH:mm" showIcon="true" mask="true" />
+
+					<p:outputLabel for="dataTermino" value="Data Final:" />
+					<p:datePicker id="dataTermino" value="#{relatorioBean.dataTermino}"
+						pattern="dd/MM/yyyy HH:mm" showIcon="true" mask="true" />
+
+					<p:outputLabel for="selecionarTodosMedicos" value="Todos os médicos:" />
+					<p:selectBooleanCheckbox id="selecionarTodosMedicos"
+						value="#{relatorioBean.selecionarTodosMedicos}">
+						<p:ajax update="medicoDropdown" />
+					</p:selectBooleanCheckbox>
+
+					<p:outputLabel for="medicoDropdown" value="Médico:" />
+					<p:selectOneMenu id="medicoDropdown"
+						value="#{relatorioBean.idMedicoSelecionado}"
+						disabled="#{relatorioBean.selecionarTodosMedicos}" filter="true">
+						<f:selectItem itemLabel="Escolha um médico" itemValue="#{null}" />
+						<f:selectItems value="#{relatorioBean.medicos}" var="medico"
+							itemLabel="#{medico.nomeCompleto}" itemValue="#{medico.id}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Filtrar" action="#{relatorioBean.filtrar}"
+						update=":relatorioForm:dataTableAtend :msg" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable id="dataTableAtend"
+				value="#{relatorioBean.atendimentos}" var="atendimento"
+				emptyMessage="Nenhum atendimento encontrado!" paginator="true">
+				<p:column headerText="Nº Atendimento">
+					<h:outputText value="#{atendimento.numero}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<h:outputText value="#{atendimento.paciente.cpf}" />
+				</p:column>
+				<p:column headerText="Nome do Paciente">
+					<h:outputText value="#{atendimento.paciente.nomeCompleto}" />
+				</p:column>
+				<p:column headerText="Data de Atendimento">
+					<h:outputText value="#{atendimento.dataEntrada}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Situação">
+					<h:outputText value="#{atendimento.situacao}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton value="Médicos"
+						action="#{relatorioBean.carregarMedico(atendimento)}"
+						update=":relatorioForm:dialogMedicos"
+						oncomplete="PF('dialogMedicos').show()"
+						style="margin-bottom: 5px;" />
+
+					<p:commandButton value="Excluir"
+						action="#{relatorioBean.excluir(atendimento)}"
+						update=":relatorioForm:confirmDialog"
+						oncomplete="PF('confirmDialog').show()"
+						style="margin-bottom: 5px; background-color: red; color: white;" />
+
+					<p:commandButton value="Finalizar"
+						action="#{relatorioBean.finalizar(atendimento)}"
+						update=":relatorioForm:dialogFinalizar :msg"
+						oncomplete="PF('dialogFinalizar').show()" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:dialog id="dialogMedicos" widgetVar="dialogMedicos"
+				header="Médicos Relacionados ao Atendimento" width="70%"
+				modal="true" resizable="false" draggable="false" closable="true">
+				<p:dataTable value="#{relatorioBean.medicoAtendimento.medicos}" var="medico">
+					<p:column headerText="Nome">
+						<h:outputText value="#{medico.nomeCompleto}" />
+					</p:column>
+					<p:column headerText="CRM">
+						<h:outputText value="#{medico.crm}" />
+					</p:column>
+					<p:column headerText="Especialidade">
+						<h:outputText value="#{medico.especialidade}" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dialog id="dialogFinalizar" widgetVar="dialogFinalizar"
+				header="Finalizar Atendimento" width="30%" modal="true"
+				resizable="false" draggable="false" closable="true">
+				<h:panelGrid columns="1">
+					<p:outputLabel for="parecerInput" value="Inserir Parecer:" />
+					<p:inputTextarea id="parecerInput" value="#{relatorioBean.parecer}"
+						rows="5" cols="40" />
+					<h:panelGroup
+						style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+						<p:commandButton value="Confirmar"
+							action="#{relatorioBean.confirmarFinalizacao}" update="@form :msg"
+							oncomplete="PF('dialogFinalizar').hide()" />
+						<p:commandButton value="Cancelar"
+							onclick="PF('dialogFinalizar').hide()" type="button" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:dialog>
+
+			<p:confirmDialog id="confirmDialog" header="Confirmação"
+				global="true" showEffect="fade" hideEffect="fade"
+				widgetVar="confirmDialog" appendTo="@(body)"
+				message="Deseja excluir este atendimento?">
+				<h:panelGroup
+					style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+					<p:commandButton value="Sim"
+						action="#{relatorioBean.confirmarExclusao}" update="@form :msg"
+						oncomplete="PF('confirmDialog').hide()"
+						style="background-color: orangered; color: white;" />
+					<p:commandButton value="Não" onclick="PF('confirmDialog').hide()"
+						type="button" />
+				</h:panelGroup>
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="titulo">Gerenciar Médico</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:growl life="5000" id="notificacao" />
+
+		<p:fieldset legend="Cadastro de Médico" toggleable="true">
+
+			<h:form id="medicoCadastro">
+
+				<h:panelGrid columns="2" cellpadding="6" styleClass="form-grid">
+
+					<p:outputLabel for="nomeMedico" value="Nome" />
+					<p:inputText id="nomeMedico"
+						value="#{medicoBean.medico.primeiroNome}" required="true"
+						requiredMessage="Informe o Nome do Médico"
+						placeholder="Digite o nome" />
+
+					<p:outputLabel for="sobrenomeMedico" value="Sobrenome" />
+					<p:inputText id="sobrenomeMedico"
+						value="#{medicoBean.medico.sobrenome}" required="true"
+						requiredMessage="Informe o Sobrenome do Médico"
+						placeholder="Digite o sobrenome" />
+
+					<p:outputLabel for="telefone" value="Telefone" />
+					<p:inputText id="telefone" value="#{medicoBean.medico.telefone}"
+						required="true" requiredMessage="Informe o telefone de contato"
+						placeholder="Digite o telefone" maxlength="11" />
+
+					<p:outputLabel for="celular" value="Celular" />
+					<p:inputText id="celular" value="#{medicoBean.medico.celular}"
+						required="true" requiredMessage="Informe o celular"
+						placeholder="Digite o celular" maxlength="11" />
+
+					<p:outputLabel for="datanasc" value="Data de Nascimento" />
+					<p:datePicker id="datanasc" value="#{medicoBean.medico.nascimento}"
+						required="true" showIcon="true" mask="true"
+						requiredMessage="Informe a data de nascimento" />
+
+					<p:outputLabel for="crm" value="CRM" />
+					<p:inputText id="crm" value="#{medicoBean.medico.crm}"
+						required="true" requiredMessage="Informe o CRM"
+						placeholder="Digite o CRM" />
+
+					<p:outputLabel for="especialidade" value="Especialidade" />
+					<p:inputText id="especialidade"
+						value="#{medicoBean.medico.especialidade}" required="true"
+						requiredMessage="Informe a especialidade"
+						placeholder="Digite a especialidade" />
+
+					<p:commandButton value="Salvar" action="#{medicoBean.gravar()}"
+						process="@form" update="@form :medicosLista, notificacao" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+
+		<p:fieldset legend="Médicos Registrados" toggleable="true"
+			collapsed="true">
+			<h:form id="medicosLista">
+				<p:dataTable value="#{medicoBean.medicos}" var="medicoAtual"
+					paginator="true" rows="10" widgetVar="tabelaMedico">
+
+					<p:column headerText="Nome" filterBy="#{medicoAtual.nomeCompleto}"
+						filterMatchMode="contains">
+						<h:outputText value="#{medicoAtual.nomeCompleto}" />
+					</p:column>
+
+					<p:column headerText="Telefone">
+						<h:outputText value="#{medicoAtual.telefone}" />
+					</p:column>
+
+					<p:column headerText="Celular">
+						<h:outputText value="#{medicoAtual.celular}" />
+					</p:column>
+
+					<p:column headerText="Data de Nascimento">
+						<h:outputText value="#{medicoAtual.nascimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="CRM">
+						<h:outputText value="#{medicoAtual.crm}" />
+					</p:column>
+
+					<p:column headerText="Especialidade">
+						<h:outputText value="#{medicoAtual.especialidade}" />
+					</p:column>
+
+					<p:column headerText="Ações">
+						<p:commandButton action="#{medicoBean.editarMedico(medicoAtual)}"
+							value="Editar" process="@form"
+							update=":medicosLista :medicoCadastro, notificacao"
+							icon="pi pi-pencil" />
+
+						<p:commandButton action="#{medicoBean.deletarMedico(medicoAtual)}"
+							value="Excluir" process="@form"
+							update=":medicosLista :medicoCadastro, notificacao"
+							icon="pi pi-times" style="background-color: red; color: white;" />
+
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:fieldset>
+
+	</ui:define>
+</ui:composition>
+
+</html>
