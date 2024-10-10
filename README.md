@@ -4,10 +4,10 @@ Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e
 
 ## 📑 Índice
 1. [Funcionalidades](#-funcionalidades)
-2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
-3. [Pré-requisitos](#pre-requisitos)
-4. [Instalação](#instalacao)
-5. [Estrutura do Projeto](#estrutura-do-projeto)
+2. [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+3. [Pré-requisitos](#-pre-requisitos)
+4. [Instalação](#i-nstalacao)
+5. [Estrutura do Projeto](#-estrutura-do-projeto)
 6. [Autor](#-autor)
 
 ## ⚙️ Funcionalidades
