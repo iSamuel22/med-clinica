@@ -2,7 +2,15 @@
 
 Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e médicos em uma clínica, desenvolvido utilizando Java, JSF, PrimeFaces, JPA e MySQL. Ele permite o cadastro de médicos, o lançamento de atendimentos e a geração de relatórios com base em filtros de data e médicos.
 
-## Funcionalidades
+## 📑 Índice
+1. [Funcionalidades](#Funcionalidades)
+2. [Tecnologias Utilizadas](#TecnologiasUtilizadas)
+3. [Pré-requisitos](#Pré-requisitos)
+4. [Instalação](#Instalação)
+5. [Estrutura do Projeto](#EstruturaDoProjeto)
+6. [Autor](#Autor)
+
+## ⚙️ Funcionalidades
 
 #### 1. Cadastro de Médicos
 * Permite cadastrar novos médicos, listar, editar e excluir médicos existentes.
@@ -31,7 +39,7 @@ Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e
 
 * Todas as telas possuem validações, incluindo campos obrigatórios e mensagens de confirmação para inclusão, edição e exclusão.
 
-## Tecnologias Utilizadas
+## 🛠 Tecnologias Utilizadas
 
 * Java
 * JSF (JavaServer Faces)
@@ -39,7 +47,7 @@ Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e
 * JPA (Java Persistence API)
 * MySQL
 
-## Pré-requisitos
+## 📝 Pré-requisitos
 
 Para executar este projeto, você precisará de:
   * JDK 11+
@@ -48,7 +56,7 @@ Para executar este projeto, você precisará de:
   * Biblioteca do PrimeFaces
   * IDE com suporte para Maven ou Gradle
 
-## Instalação
+## 🚀 Instalação
 
 1. Criar um JavaServer Faces (JSF) v2.3 Project no Eclipse:
 
@@ -73,9 +81,13 @@ git clone https://github.com/smuelp/med-clinica.git
 
   * Inicie o servidor de aplicação e acesse o sistema via navegador.
 
-## Estrutura do Projeto
+## 🗂 Estrutura do Projeto
 
 `modelo/`: Contém as classes de domínio.
 `controle/`: Controladores das interações do usuário.
 `service/`: Lógica de negócio e interações com o banco de dados.
 `views/`: Páginas JSF (XHTML) para interface com o usuário.
+
+## 👤 Autor
+
+_Desenvolvido por Samuel Ildebrando Pena._
