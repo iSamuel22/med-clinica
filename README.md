@@ -84,8 +84,11 @@ git clone https://github.com/smuelp/med-clinica.git
 ## 🗂 Estrutura do Projeto
 
 `modelo/`: Contém as classes de domínio.
+
 `controle/`: Controladores das interações do usuário.
+
 `service/`: Lógica de negócio e interações com o banco de dados.
+
 `views/`: Páginas JSF (XHTML) para interface com o usuário.
 
 ## 👤 Autor
