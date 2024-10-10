@@ -3,12 +3,12 @@
 Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e médicos em uma clínica, desenvolvido utilizando Java, JSF, PrimeFaces, JPA e MySQL. Ele permite o cadastro de médicos, o lançamento de atendimentos e a geração de relatórios com base em filtros de data e médicos.
 
 ## 📑 Índice
-1. [Funcionalidades](#funcionalidades)
+1. [Funcionalidades](#-funcionalidades)
 2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
 3. [Pré-requisitos](#pre-requisitos)
 4. [Instalação](#instalacao)
 5. [Estrutura do Projeto](#estrutura-do-projeto)
-6. [Autor](#autor)
+6. [Autor](#-autor)
 
 ## ⚙️ Funcionalidades
 
