@@ -6,7 +6,7 @@ Este projeto é um sistema web para gerenciamento de atendimentos de pacientes e
 1. [Funcionalidades](#-funcionalidades)
 2. [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 3. [Pré-requisitos](#-pré-requisitos)
-4. [Instalação](#-instalacao)
+4. [Instalação](#-instalação)
 5. [Estrutura do Projeto](#-estrutura-do-projeto)
 6. [Autor](#-autor)
 
