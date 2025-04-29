@@ -66,7 +66,7 @@ Para executar este projeto, você precisará de:
 
 2. Clone o repositório:
 ```bash
-git clone https://github.com/smuelp/med-clinica.git
+git clone https://github.com/iSamuel22/med-clinica.git
 ```
 
 3. Adicione as bibliotecas:
